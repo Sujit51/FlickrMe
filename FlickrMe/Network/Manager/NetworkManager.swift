@@ -55,9 +55,9 @@ extension NetworkManager {
         }
     }
     
-    func beginDownloadingImage(for photo: FlickrPhoto, completion: @escaping (Result<UIImage, Error>) -> ()) {
+    func beginDownloadingImage(for imageInfo: FlickrImage, completion: @escaping (Result<UIImage, Error>) -> ()) {
         
-        imageDownloader.request(.init(photo: photo)) { (image, error) in
+        imageDownloader.request(.image(with: imageInfo, size: .thumbnail)) { (image, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -72,8 +72,8 @@ extension NetworkManager {
         }
     }
     
-    func pauseDownloadingImage(for photo: FlickrPhoto) {
-        imageDownloader.pause(for: .init(photo: photo))
+    func pauseDownloadingImage(for imageInfo: FlickrImage) {
+        imageDownloader.pause(for: .image(with: imageInfo, size: .thumbnail))
     }
     
     private func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<NetworkResponse, NetworkResponse> {

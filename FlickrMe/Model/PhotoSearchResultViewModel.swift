@@ -27,7 +27,7 @@ final class PhotoSearchResultViewModel {
     private var currentPage: Int = 0
     private var totalResults: Int = 0
     private var pageCount: Int = 0
-    private var photos: [FlickrPhoto] = []
+    private var photos: [FlickrImage] = []
     
     init(networkManager: NetworkManager = NetworkManager(), delegate: PhotoSearchResultViewModelDelegate) {
         self.networkManager = networkManager
@@ -86,7 +86,7 @@ final class PhotoSearchResultViewModel {
         photos = []
     }
     
-    private func calculateIndexPathsToReload(from newPhotos: [FlickrPhoto]) -> [IndexPath] {
+    private func calculateIndexPathsToReload(from newPhotos: [FlickrImage]) -> [IndexPath] {
         let startIndex = photos.count - newPhotos.count
         let endIndex = startIndex + newPhotos.count
         return (startIndex..<endIndex).map { IndexPath(item: $0, section: 0) }
@@ -101,7 +101,7 @@ final class PhotoSearchResultViewModel {
         return totalResults > 20000 ? 20000 : 0        // Because after 20000 collection view scrollong gets jerky
     }
     
-    func photo(atIndexPath indexPath: IndexPath) -> FlickrPhoto? {
+    func photo(atIndexPath indexPath: IndexPath) -> FlickrImage? {
         guard indexPath.item < photos.count else { return nil }
         return photos[indexPath.item]
     }

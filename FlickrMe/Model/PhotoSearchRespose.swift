@@ -17,7 +17,7 @@ struct PhotoSearchResult {
     let numberOfPages: Int
     let photosPerPage: Int
     let numberOfResults: String
-    let photos: [FlickrPhoto]
+    let photos: [FlickrImage]
 }
 
 extension PhotoSearchResult: Decodable {
@@ -37,6 +37,6 @@ extension PhotoSearchResult: Decodable {
         numberOfPages = try container.decode(Int.self, forKey: .numberOfPages)
         photosPerPage = try container.decode(Int.self, forKey: .photosPerPage)
         numberOfResults = try container.decode(String.self, forKey: .numberOfResults)
-        photos = try container.decode([FlickrPhoto].self, forKey: .photos)
+        photos = try container.decode([FlickrImage].self, forKey: .photos)
     }
 }

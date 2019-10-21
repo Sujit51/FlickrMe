@@ -8,23 +8,33 @@
 
 import Foundation
 
-struct FlickrPhotoDownloadEndpoint: EndpointType {
-    private let photo: FlickrPhoto
-    
+public enum ImageSize: String {
+    case thumbnail = "t"
+    // Scope for other sizes here
+}
+
+enum FlickrPhotoDownloadEndpoint {
+    case image(with: FlickrImage, size: ImageSize)
+}
+
+extension FlickrPhotoDownloadEndpoint: EndpointType {
+
     var baseURL: URL {
-        guard let url = URL(string: "https://farm\(photo.farm).static.flickr.com/") else { fatalError("baseURL could not be configured.") }
-        return url
+        switch self {
+        case .image(let imageInfo, _):
+            guard let url = URL(string: "https://farm\(imageInfo.farm).static.flickr.com/") else { fatalError("baseURL could not be configured.") }
+            return url
+        }
     }
     
     var path: String {
-        return "\(photo.server)/\(photo.id)_\(photo.secret).jpg"
+        switch self {
+        case .image(let imageInfo, let imageSize):
+            return "\(imageInfo.server)/\(imageInfo.id)_\(imageInfo.secret)_\(imageSize.rawValue).jpg"
+        }
     }
     
     var httpMethod: HTTPMethod { return .get }
     var task: HTTPTask { return .request }
     var headers: HTTPHeaders? { return nil }
-    
-    init(photo: FlickrPhoto) {
-        self.photo = photo
-    }
 }
