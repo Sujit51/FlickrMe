@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A439ADBC235D93FC00B1101E /* NetworkLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A439ADBB235D93FC00B1101E /* NetworkLayerTests.swift */; };
-		A46B6C2E2359CA69005BDA8F /* PhotoSearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B6C2D2359CA69005BDA8F /* PhotoSearchResultViewModel.swift */; };
+		A46B6C2E2359CA69005BDA8F /* FlickrImageSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46B6C2D2359CA69005BDA8F /* FlickrImageSearchViewModel.swift */; };
 		A46C871C235CC5420044DA82 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46C871B235CC5420044DA82 /* ImageDownloader.swift */; };
 		A46C871E235CC5850044DA82 /* ImageTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46C871D235CC5850044DA82 /* ImageTask.swift */; };
 		A46E9DF12358C0A3002E2799 /* EndpointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46E9DF02358C0A3002E2799 /* EndpointType.swift */; };
@@ -51,7 +51,7 @@
 
 /* Begin PBXFileReference section */
 		A439ADBB235D93FC00B1101E /* NetworkLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayerTests.swift; sourceTree = "<group>"; };
-		A46B6C2D2359CA69005BDA8F /* PhotoSearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoSearchResultViewModel.swift; sourceTree = "<group>"; };
+		A46B6C2D2359CA69005BDA8F /* FlickrImageSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrImageSearchViewModel.swift; sourceTree = "<group>"; };
 		A46C871B235CC5420044DA82 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		A46C871D235CC5850044DA82 /* ImageTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTask.swift; sourceTree = "<group>"; };
 		A46E9DF02358C0A3002E2799 /* EndpointType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndpointType.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				A46E9DFB2358DE39002E2799 /* FlickrImage.swift */,
-				A46B6C2D2359CA69005BDA8F /* PhotoSearchResultViewModel.swift */,
+				A46B6C2D2359CA69005BDA8F /* FlickrImageSearchViewModel.swift */,
 				A46E9DF92358DCE2002E2799 /* PhotoSearchRespose.swift */,
 			);
 			path = Model;
@@ -391,7 +391,7 @@
 				A46E9DFA2358DCE2002E2799 /* PhotoSearchRespose.swift in Sources */,
 				A49B6E3623587B570086C21F /* HTTPTask.swift in Sources */,
 				A49B6E3423587B570086C21F /* JSONParameterEncoder.swift in Sources */,
-				A46B6C2E2359CA69005BDA8F /* PhotoSearchResultViewModel.swift in Sources */,
+				A46B6C2E2359CA69005BDA8F /* FlickrImageSearchViewModel.swift in Sources */,
 				A49B6E3323587B570086C21F /* URLParameterEncoder.swift in Sources */,
 				A49B6E3223587B570086C21F /* ParameterEncoding.swift in Sources */,
 				A46E9DF32358CA37002E2799 /* FlickrEndpoint.swift in Sources */,

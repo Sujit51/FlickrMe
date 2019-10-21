@@ -19,14 +19,14 @@ final class SearchImageViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView?
     @IBOutlet weak var photosCollectionView: UICollectionView?
     
-    private var viewModel: PhotoSearchResultViewModel!
+    private var viewModel: FlickrImageSearchViewModel!
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupSearchController()
-        viewModel = PhotoSearchResultViewModel.init(delegate: self)
+        viewModel = FlickrImageSearchViewModel.init(delegate: self)
         photosCollectionView?.reloadData()
     }
     
@@ -87,7 +87,7 @@ extension SearchImageViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(forIndexPath: indexPath) as PhotoViewCell
         
-        let photo = viewModel?.photo(atIndexPath: indexPath)
+        let photo = viewModel?.imageInfo(atIndexPath: indexPath)
         cell.configure(with: photo)
         
         return cell
@@ -170,7 +170,7 @@ extension SearchImageViewController: UISearchResultsUpdating {
 }
 
 // MARK: - PhotoSearchResultViewModelDelegate
-extension SearchImageViewController: PhotoSearchResultViewModelDelegate {
+extension SearchImageViewController: FlickrImageSearchViewModelDelegate {
     
     func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?) {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
