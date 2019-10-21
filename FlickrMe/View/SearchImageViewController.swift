@@ -19,7 +19,7 @@ final class SearchImageViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView?
     @IBOutlet weak var photosCollectionView: UICollectionView?
     
-    private var viewModel: FlickrImageSearchViewModel!
+    private var viewModel: (FlickrImageSearchViewDelegate & FlickrImageSearchViewDataSource)!
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
@@ -94,11 +94,11 @@ extension SearchImageViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        viewModel?.beginDownloadingPhoto(forIndexPath: indexPath)
+        viewModel?.beginDownloadingImage(forIndexPath: indexPath)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        viewModel?.pauseDownloadingPhoto(forIndexPath: indexPath)
+        viewModel?.pauseDownloadingImage(forIndexPath: indexPath)
     }
 }
 

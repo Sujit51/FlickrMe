@@ -10,6 +10,7 @@ import Foundation
 
 public enum ImageSize: String {
     case thumbnail = "t"
+    case sqare = "q"
     // Scope for other sizes here
 }
 

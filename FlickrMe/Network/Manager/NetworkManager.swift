@@ -13,7 +13,7 @@ enum NetworkEnvironment {
     // Scope to add staging, development etc
 }
 
-struct NetworkManager {
+class NetworkManager {
     
     static let environment: NetworkEnvironment = .production
     
@@ -22,9 +22,6 @@ struct NetworkManager {
     
     private let flickrEndpoint = Endpoint<FlickrApi>()
     private let imageDownloader = ImageDownloader<FlickrPhotoDownloadEndpoint>(session: .shared)
-}
-
-extension NetworkManager {
     
     func searchPhotos(withTerm term: String, page: Int, completion: @escaping (Result<PhotoSearchResult, Error>) -> ()) {
         
@@ -57,7 +54,7 @@ extension NetworkManager {
     
     func beginDownloadingImage(for imageInfo: FlickrImage, completion: @escaping (Result<UIImage, Error>) -> ()) {
         
-        imageDownloader.request(.image(with: imageInfo, size: .thumbnail)) { (image, error) in
+        imageDownloader.request(.image(with: imageInfo, size: .sqare)) { (image, error) in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -73,7 +70,7 @@ extension NetworkManager {
     }
     
     func pauseDownloadingImage(for imageInfo: FlickrImage) {
-        imageDownloader.pause(for: .image(with: imageInfo, size: .thumbnail))
+        imageDownloader.pause(for: .image(with: imageInfo, size: .sqare))
     }
     
     private func handleNetworkResponse(_ response: HTTPURLResponse) -> Result<NetworkResponse, NetworkResponse> {

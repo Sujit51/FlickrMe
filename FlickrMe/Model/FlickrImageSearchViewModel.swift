@@ -8,13 +8,7 @@
 
 import UIKit
 
-protocol FlickrImageSearchViewModelDelegate: class {
-    func onFetchCompleted(with newIndexPathsToReload: [IndexPath]?)
-    func onFetchFailed(with reason: String)
-    func onDownloadingImage(_ image: UIImage, forIndexPath indexPath: IndexPath)
-}
-
-final class FlickrImageSearchViewModel {
+final class FlickrImageSearchViewModel: FlickrImageSearchViewDelegate, FlickrImageSearchViewDataSource {
     
     private let networkManager: NetworkManager
     private weak var delegate: FlickrImageSearchViewModelDelegate?
@@ -34,6 +28,21 @@ final class FlickrImageSearchViewModel {
         self.delegate = delegate
     }
     
+    // FlickrImageSearchViewDataSource methods
+    func numberOfSections() -> Int {
+        return 1
+    }
+    
+    func numberOfItemsInSection(_ section: Int) -> Int {
+        return totalResults > 20000 ? 20000 : 0        // Because after 20,000 collection view scrollong gets jerky
+    }
+    
+    func imageInfo(atIndexPath indexPath: IndexPath) -> FlickrImage? {
+        guard indexPath.item < imagesInfo.count else { return nil }
+        return imagesInfo[indexPath.item]
+    }
+    
+    // MARK: - FlickrImageSearchViewDelegate methods
     func search(term: String, isFreshSearch: Bool = false) {
         
         guard !term.isEmpty, term.count > 1 else {
@@ -44,9 +53,7 @@ final class FlickrImageSearchViewModel {
         guard !isSearchInProgress else { return }
         isSearchInProgress = true
         
-        if isFreshSearch {
-            reset()
-        }
+        if isFreshSearch { reset() }
         
         networkManager.searchPhotos(withTerm: term, page: currentPage + 1) { (result) in
             switch result {
@@ -79,34 +86,7 @@ final class FlickrImageSearchViewModel {
         }
     }
     
-    private func reset() {
-        currentPage = 0
-        totalResults = 0
-        pageCount = 0
-        imagesInfo = []
-    }
-    
-    private func calculateIndexPathsToReload(from newPhotos: [FlickrImage]) -> [IndexPath] {
-        let startIndex = imagesInfo.count - newPhotos.count
-        let endIndex = startIndex + newPhotos.count
-        return (startIndex..<endIndex).map { IndexPath(item: $0, section: 0) }
-    }
-    
-    // Collection View datasource methods
-    func numberOfSections() -> Int {
-        return 1
-    }
-    
-    func numberOfItemsInSection(_ section: Int) -> Int {
-        return totalResults > 20000 ? 20000 : 0        // Because after 20000 collection view scrollong gets jerky
-    }
-    
-    func imageInfo(atIndexPath indexPath: IndexPath) -> FlickrImage? {
-        guard indexPath.item < imagesInfo.count else { return nil }
-        return imagesInfo[indexPath.item]
-    }
-    
-    func beginDownloadingPhoto(forIndexPath indexPath: IndexPath) {
+    func beginDownloadingImage(forIndexPath indexPath: IndexPath) {
         guard indexPath.item < imagesInfo.count else { return }
         
         let photo = imagesInfo[indexPath.item]
@@ -128,10 +108,23 @@ final class FlickrImageSearchViewModel {
         }
     }
     
-    func pauseDownloadingPhoto(forIndexPath indexPath: IndexPath) {
+    func pauseDownloadingImage(forIndexPath indexPath: IndexPath) {
         guard indexPath.item < imagesInfo.count else { return }
         
         let imageInfo = imagesInfo[indexPath.item]
         networkManager.pauseDownloadingImage(for: imageInfo)
+    }
+    
+    private func reset() {
+        currentPage = 0
+        totalResults = 0
+        pageCount = 0
+        imagesInfo = []
+    }
+    
+    private func calculateIndexPathsToReload(from newPhotos: [FlickrImage]) -> [IndexPath] {
+        let startIndex = imagesInfo.count - newPhotos.count
+        let endIndex = startIndex + newPhotos.count
+        return (startIndex..<endIndex).map { IndexPath(item: $0, section: 0) }
     }
 }
