@@ -1,5 +1,5 @@
 //
-//  FlickrEndpoint.swift
+//  FlickrApi.swift
 //  FlickrMe
 //
 //  Created by Sujit Yadawad

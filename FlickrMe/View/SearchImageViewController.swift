@@ -1,5 +1,5 @@
 //
-//  SearchViewController.swift
+//  SearchImageViewController.swift
 //  FlickrMe
 //
 //  Created by Sujit Yadawad

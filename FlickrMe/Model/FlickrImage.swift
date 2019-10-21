@@ -1,5 +1,5 @@
 //
-//  PhotoModel.swift
+//  FlickrImage.swift
 //  FlickrMe
 //
 //  Created by Sujit Yadawad

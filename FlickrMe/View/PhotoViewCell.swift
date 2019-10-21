@@ -2,7 +2,7 @@
 //  PhotoViewCell.swift
 //  FlickrMe
 //
-//  Created by Sujit Yadawad on 15.10.19.
+//  Created by Sujit Yadawad
 //  Copyright © 2019 Sujit Yadawad. All rights reserved.
 //
 
